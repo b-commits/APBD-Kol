@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APBD_mock.Middlewares;
+using APBD_mock.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +26,7 @@ namespace APBD_mock
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IAnimalsDbService, AnimalService>();
             services.AddControllers();
         }
 
@@ -34,6 +37,8 @@ namespace APBD_mock
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<IdMiddleware>();
 
             app.UseRouting();
 
